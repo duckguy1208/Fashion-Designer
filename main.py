@@ -1,94 +1,145 @@
 #!/usr/bin/env python3
 import random
 
+def validate_name(name):
+    """
+    Validates the user's name.
+    Must be at least 2 characters and contain only alphabetic characters.
+    """
+    name = name.strip()
+    if len(name) < 2:
+        return False
+    if not name.isalpha():
+        return False
+    return True
+
+def get_age_group(age):
+    """Returns a category based on age."""
+    if age < 0:
+        return "Invalid"
+    if age < 13:
+        return "Child"
+    if age < 20:
+        return "Teenager"
+    if age < 65:
+        return "Adult"
+    return "Senior"
+
+def get_hat_feedback(hat_yes_no, hat_type=None):
+    """Returns feedback based on hat preference."""
+    if hat_yes_no.lower().strip() == "yes":
+        if not hat_type:
+            return "Not My First Choice But Its Still Good"
+        
+        hat_type = hat_type.lower().strip()
+        if hat_type == "beanie":
+            return "Beanies Are Great For The Cold"
+        elif hat_type == "baseball hat":
+            return "Baseball Hats Are My Favorite!"
+        else:
+            return "Not My First Choice But Its Still Good"
+    elif hat_yes_no.lower().strip() == "no":
+        return "That's Okay"
+    return None
+
+def get_top_feedback(top_name):
+    """Returns feedback for the chosen top."""
+    if not top_name.strip():
+        return "Beach Day?"
+    return random.choice(["That's a good choice.", "Ayy that’s lit.", "I like where this is going."])
+
+def get_bottom_feedback(bottom_name):
+    """Returns feedback for the chosen bottom."""
+    bottom = bottom_name.lower().strip()
+    if bottom == "cargo pants":
+        return "I Also Like Cargo Pants."
+    elif bottom == "sweatpants":
+        return "Sweatpants Are My Favorite!"
+    elif bottom == "swimsuit":
+        return "Beach Day!!!"
+    elif bottom == "":
+        return "Weird"
+    else:
+        return f"You Can’t Go Wrong With {bottom}."
+
+def get_shoes_feedback(shoes_name):
+    """Returns feedback for the chosen shoes."""
+    if shoes_name.lower().strip() == "adidas":
+        return "I Love Adidas!"
+    return None
+
+def get_final_verdict(top, bottom):
+    """Returns the final fashion verdict."""
+    if not top.strip() and not bottom.strip():
+        return "Go Put Some Clothes On!!"
+    if not top.strip() and bottom.lower().strip() == "swimsuit":
+        return "Beach Day!!!"
+    
+    return random.choice(["Looking Good!", "Fire Fit!", "Looks Good"])
+
 def main():
     print("\n" + " Fashion bot 9000".center(50))
 
-    name = input("What is your first name? ").title().strip()
+    while True:
+        name = input("What is your first name? ").strip()
+        if validate_name(name):
+            name = name.title()
+            break
+        print("Please enter a valid name (at least 2 letters, no numbers).")
     
     try:
         age_input = input("How old are you? ")
         age = int(age_input)
     except ValueError:
         age = 0 
-        # Not using age currently, but keeping the input to match original flow
+    
+    age_group = get_age_group(age)
+    if age_group == "Senior":
+        print("Classic style is always in fashion!")
+    elif age_group == "Child":
+        print("Comfort is key for active kids!")
 
     # Hat
-    hat = input("Do you wear hats? ").lower().strip()
+    hat = input("Do you wear hats? ")
     hat_type = None
-
-    if hat == "yes":
-        hat_type = input(f"So, {name} What type of hats do you wear? ").lower().strip()
-        if hat_type == "beanie":
-            print("Beanies Are Great For The Cold")
-        elif hat_type == "baseball hat":
-            print("Baseball Hats Are My Favorite!")
-        else:
-            print("Not My First Choice But Its Still Good")
-    elif hat == "no":
-        print("That's Okay")
-    else:
-        # Default fallback if they say something else
-        pass
+    if hat.lower().strip() == "yes":
+        hat_type = input(f"So, {name} What type of hats do you wear? ")
+    
+    feedback = get_hat_feedback(hat, hat_type)
+    if feedback:
+        print(feedback)
 
     # Top
-    top = input(f"So, {name} What Is Your Favorite Top? ").strip()
-    top_response = random.choice(["That's a good choice.", "Ayy that’s lit.", "I like where this is going."])
-    
-    if top == "":
-        print("Beach Day?")
-    else:
-        print(top_response)
+    top = input(f"So, {name} What Is Your Favorite Top? ")
+    print(get_top_feedback(top))
 
     # Bottom
-    bottom = input("What about your choice of bottom? ").lower().strip()
-    if bottom == "cargo pants":
-        print("I Also Like Cargo Pants.")
-    elif bottom == "sweatpants":
-        print("Sweatpants Are My Favorite!")
-    elif bottom == "swimsuit":
-        print("Beach Day!!!")
-    elif bottom == "":
-        print("Weird")
-    else:
-        print(f"You Can’t Go Wrong With {bottom}.")
+    bottom = input("What about your choice of bottom? ")
+    print(get_bottom_feedback(bottom))
     
     # Shoes
-    shoes = input("What shoes do you like? ").lower().strip()
-    if shoes == "adidas":
-        print("I Love Adidas!")
+    shoes = input("What shoes do you like? ")
+    shoe_feedback = get_shoes_feedback(shoes)
+    if shoe_feedback:
+        print(shoe_feedback)
 
     # Final Fit Output
     print("\n" + f"Final Outfit For: {name}".center(50))
     
-    if hat == "yes" and hat_type:
-        print(hat_type.title().center(50))
-    else:
-        print("No Hat".center(50))
+    formatted_hat = hat_type.title() if (hat.lower().strip() == "yes" and hat_type) else "No Hat"
+    print(formatted_hat.center(50))
     
-    if top.lower() in ["", "none"]:
-        print("No Top".center(50))
-    else:
-        print(top.title().center(50))
+    formatted_top = top.title() if top.strip() else "No Top"
+    print(formatted_top.center(50))
 
-    if bottom.lower() in ["", "none"]:
-        print("No Bottoms, Weirdo".center(50))
-    else:
-        print(bottom.title().center(50))
+    formatted_bottom = bottom.title() if bottom.strip() else "No Bottoms, Weirdo"
+    print(formatted_bottom.center(50))
     
-    if shoes.lower() in ["", "none"]:
-        print("Barefoot".center(50))
-    else:
-        print(shoes.title().center(50))
+    formatted_shoes = shoes.title() if shoes.strip() else "Barefoot"
+    print(formatted_shoes.center(50))
 
     # Response Verdict
-    verdict = random.choice(["Looking Good!", "Fire Fit!", "Looks Good"])
-    if top == "" and bottom == "":
-        print("Go Put Some Clothes On!!".center(50))
-    elif top == "" and bottom == "swimsuit":
-        print("Beach Day!!!".center(50))
-    else:
-        print(verdict.center(50))
+    print(get_final_verdict(top, bottom).center(50))
 
 if __name__ == "__main__":
     main()
