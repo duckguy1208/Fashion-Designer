@@ -1,6 +1,30 @@
 #!/usr/bin/env python3
 import random
 
+def validate_name(name):
+    """
+    Validates the user's name.
+    Must be at least 2 characters and contain only alphabetic characters.
+    """
+    name = name.strip()
+    if len(name) < 2:
+        return False
+    if not name.isalpha():
+        return False
+    return True
+
+def get_age_group(age):
+    """Returns a category based on age."""
+    if age < 0:
+        return "Invalid"
+    if age < 13:
+        return "Child"
+    if age < 20:
+        return "Teenager"
+    if age < 65:
+        return "Adult"
+    return "Senior"
+
 def get_hat_feedback(hat_yes_no, hat_type=None):
     """Returns feedback based on hat preference."""
     if hat_yes_no.lower().strip() == "yes":
@@ -56,13 +80,24 @@ def get_final_verdict(top, bottom):
 def main():
     print("\n" + " Fashion bot 9000".center(50))
 
-    name = input("What is your first name? ").title().strip()
+    while True:
+        name = input("What is your first name? ").strip()
+        if validate_name(name):
+            name = name.title()
+            break
+        print("Please enter a valid name (at least 2 letters, no numbers).")
     
     try:
         age_input = input("How old are you? ")
         age = int(age_input)
     except ValueError:
         age = 0 
+    
+    age_group = get_age_group(age)
+    if age_group == "Senior":
+        print("Classic style is always in fashion!")
+    elif age_group == "Child":
+        print("Comfort is key for active kids!")
 
     # Hat
     hat = input("Do you wear hats? ")
