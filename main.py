@@ -29,7 +29,7 @@ else:
 
 top=str(input("So, "+name+" What Is Your Favorite Top? ")).strip()
 topresponse=random.choice(["That's a good choice.", "Ayy that’s lit.", "I like where this is going."])
-if top=="":
+if top=="none":
     print("Beach Day?")
 else:
     print(topresponse)
@@ -43,7 +43,7 @@ elif bottom=="sweatpants":
     print("Sweatpants Are My Favorite!")
 elif bottom=="swimsuit":
     print("Beach Day!!!")
-elif bottom=="":
+elif bottom=="none":
     print("Weird")
 else:
     print("You Can’t Go Wrong With "+bottom+".")
@@ -53,6 +53,10 @@ else:
 shoes=str(input("What shoes do you like? ")).lower().strip()
 if shoes=="adidas":
     print("I Love Adidas!")
+elif shoes=="none":
+    print("Going Barefoot? Bold Move.")
+else:
+    print("I Like "+shoes.title()+" Too!")
 #fit
 
 print("\nFinal Outfit For: "+name.strip())
@@ -61,17 +65,17 @@ if hat=="yes":
 else:
     print("No Hat".center(50))
     
-if top=="" or "none":
+if top=="none":
     print("No Top".center(50))
 else:
     print(top.title().strip().center(50))
 
-if bottom=="" or "none":
+if bottom=="none":
     print("No Bottoms, Werido".center(50))
 else:
     print(bottom.title().strip().center(50))
     
-if shoes=="" or "none":
+if shoes=="none":
     print("Barefoot".center(50))
 else:
     print(shoes.title().strip().center(50))
@@ -79,9 +83,9 @@ else:
 #response
 
 verdict=random.choice(["Looking Good!", "Fire Fit!","Looks Good"])
-if top=="" and bottom=="":
+if top=="none" and bottom=="none":
     print("Go Put Some Clothes On!!".center(50))
-elif top=="" and bottom=="swimsuit":
+elif top=="none" and bottom=="swimsuit":
     print("Beach Day!!!".center(50))
 else:
     print(verdict.center(50))
