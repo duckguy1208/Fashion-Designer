@@ -55,8 +55,7 @@ if shoes=="adidas":
     print("I Love Adidas!")
 elif shoes=="none":
     print("Going Barefoot? Bold Move.")
-else:
-    print("I Like "+shoes.title()+" Too!")
+
 #fit
 
 print("\nFinal Outfit For: "+name.strip())
