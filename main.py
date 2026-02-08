@@ -4,7 +4,7 @@
 
 import random
 
-print (str("\n Fashion bot 9000".center(50)))
+print (str("\nFashion bot 9000".center(50)))
 
 
 name=str(input("What is your first name? ")).title()
@@ -15,7 +15,7 @@ age=int(input("How old are you? "))
 hat=str(input("Do you wear hats? ")).lower().strip()
 
 if hat=="yes":
-    hattype=input("So, "+name+" What type of hats do you wear? ").lower()
+    hattype=input("So, "+name+" What type of hats do you wear? ").lower().strip()
 if hat=="no":
     print("Thats Okay")
 elif hattype=="beanie":
@@ -27,7 +27,7 @@ else:
 
 #top
 
-top=str(input("So, "+name+" What Is Your Favorite Top? "))
+top=str(input("So, "+name+" What Is Your Favorite Top? ")).strip()
 topresponse=random.choice(["That's a good choice.", "Ayy that’s lit.", "I like where this is going."])
 if top=="":
     print("Beach Day?")
@@ -36,7 +36,7 @@ else:
 
 #bottom
 
-bottom=str(input("What about your choice of bottom? ")).lower()
+bottom=str(input("What about your choice of bottom? ")).lower().strip()
 if bottom=="cargo pants":
     print("I Also Like Cargo Pants.")
 elif bottom=="sweatpants":
@@ -55,7 +55,7 @@ if shoes=="adidas":
     print("I Love Adidas!")
 #fit
 
-print("\nFinal Outfit For: "+name.strip().center(15))
+print("\nFinal Outfit For: "+name.strip())
 if hat=="yes":
     print(hattype.title().strip().center(50))
 else:
