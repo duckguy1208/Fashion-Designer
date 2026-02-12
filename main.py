@@ -1,5 +1,3 @@
-#!/usr/bin/env python3b
-
 #Code I Did Below
 
 import random
@@ -27,7 +25,7 @@ else:
 
 #top
 
-top=str(input("So, "+name+" What Is Your Favorite Top? ")).strip()
+top=str(input("So, "+name+" What Is Your Favorite Top? ")).lower().strip()
 topresponse=random.choice(["That's a good choice.", "Ayy that’s lit.", "I like where this is going."])
 if top=="none":
     print("Beach Day?")
